@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useRef } from 'react';
 
 const initialState = {
   color: 'red',
@@ -26,17 +26,21 @@ export const ColorTextContext = createContext();
 
 export const ColorTextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const colorClickRef = useRef(0);
+  const textClickRef = useRef(0);
 
   const changeColor = () => {
     dispatch({ type: 'CHANGE_COLOR' });
+    colorClickRef.current++;
   }
 
   const changeText = () => {
     dispatch({ type: 'CHANGE_TEXT' });
+    textClickRef.current++;
   }
 
   return (
-    <ColorTextContext.Provider value={{ color: state.color, text:state.text, changeColor, changeText }}>
+    <ColorTextContext.Provider value={{ color: state.color, text:state.text, changeColor, changeText, colorClicks: colorClickRef.current, textClicks: textClickRef.current }}>
       {children}
     </ColorTextContext.Provider>
   );

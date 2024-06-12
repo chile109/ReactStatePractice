@@ -1,10 +1,13 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { ColorTextContext } from "../Context/ColorTextContext";
 
 function ColorTextDisplay() {
-    const {color, text} = useContext(ColorTextContext);
+    const { color, text, colorClicks, textClicks } = useContext(ColorTextContext);
     return (
-        <h1 style={{ color }}>{text}</h1>
+        <div> <h1 style={{ color }}>{text}</h1>
+            <p>Color change clicks: {colorClicks}</p>
+            <p>Text change clicks: {textClicks}</p>
+        </div>
     );
 }
 

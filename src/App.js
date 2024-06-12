@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const [color, setColor] = useState("red");
+  const [text, setText] = useState('Hello, World!');
+
+  const changeColor = () => {
+    setColor(preColor => preColor === "red" ? "blue" : "red");
+  }
+
+  const changeText = () => {
+    setText(preText => preText === 'Hello, World!' ? 'Hello, React!' : 'Hello, World!');
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 style={{ color }}>{text}</h1>
+      <button onClick={changeColor}>Change Color</button>
+      <button onClick={changeText}>Change Text</button>
     </div>
   );
 }

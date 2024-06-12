@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useState } from 'react';
-import { ColorTextContext, ColorTextProvider } from './Context/ColorTextContext';
+import React from 'react';
+import { ColorTextProvider } from './Context/ColorTextContext';
 import ColorTextButton from './Component/ColorTextButton';
 import ColorTextDisplay from './Component/ColorTextDisplay';
 

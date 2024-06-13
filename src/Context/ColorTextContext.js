@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useRef } from 'react';
+import React, { createContext, useReducer, useRef, useCallback, useMemo } from 'react';
 
 const initialState = {
   color: 'red',
@@ -29,18 +29,27 @@ export const ColorTextProvider = ({ children }) => {
   const colorClickRef = useRef(0);
   const textClickRef = useRef(0);
 
-  const changeColor = () => {
+  const changeColor = useCallback(() => {
     dispatch({ type: 'CHANGE_COLOR' });
-    colorClickRef.current++;
-  }
+    colorClickRef.current += 1;
+  }, [dispatch]);
 
-  const changeText = () => {
+  const changeText = useCallback(() => {
     dispatch({ type: 'CHANGE_TEXT' });
-    textClickRef.current++;
-  }
+    textClickRef.current += 1;
+  }, [dispatch]);
+
+  const contextValue = useMemo(() => ({
+    color: state.color,
+    text: state.text,
+    colorClicks: colorClickRef.current,
+    textClicks: textClickRef.current,
+    changeColor,
+    changeText
+  }), [state.color, state.text, changeColor, changeText]);
 
   return (
-    <ColorTextContext.Provider value={{ color: state.color, text:state.text, changeColor, changeText, colorClicks: colorClickRef.current, textClicks: textClickRef.current }}>
+    <ColorTextContext.Provider value={contextValue}>
       {children}
     </ColorTextContext.Provider>
   );

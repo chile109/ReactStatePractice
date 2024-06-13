@@ -8,7 +8,7 @@ function App() {
 
   return (
     <ColorTextProvider>
-      <div classname="App">
+      <div className="App">
         <ColorTextButton />
         <ColorTextDisplay />
       </div>

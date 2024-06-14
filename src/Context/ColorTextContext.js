@@ -1,56 +1,34 @@
-import React, { createContext, useReducer, useRef, useCallback, useMemo } from 'react';
-
-const initialState = {
-  color: 'red',
-  text: 'Hello, World!'
-}
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'CHANGE_COLOR':
-      return {
-        ...state,
-        color: state.color === 'red' ? 'blue' : 'red'
-      };
-    case 'CHANGE_TEXT':
-      return {
-        ...state,
-        text: state.text === 'Hello, World!' ? 'Hello, React!' : 'Hello, World!'
-      };
-    default:
-      return state;
-  }
-}
+import React, { useState, useCallback, createContext, useRef, useMemo } from 'react';
 
 export const ColorTextContext = createContext();
 
 export const ColorTextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
   const colorClickRef = useRef(0);
   const textClickRef = useRef(0);
+  const [colorClicks, setColorClicks] = useState(colorClickRef.current);
+  const [textClicks, setTextClicks] = useState(textClickRef.current);
 
-  const changeColor = useCallback(() => {
-    dispatch({ type: 'CHANGE_COLOR' });
+  const incrementColorClicks = useCallback(() => {
     colorClickRef.current += 1;
-  }, [dispatch]);
+    setColorClicks(colorClickRef.current);
+  }, []);
 
-  const changeText = useCallback(() => {
-    dispatch({ type: 'CHANGE_TEXT' });
+  const incrementTextClicks = useCallback(() => {
     textClickRef.current += 1;
-  }, [dispatch]);
+    setTextClicks(textClickRef.current);
+  }, []);
 
   const contextValue = useMemo(() => ({
-    color: state.color,
-    text: state.text,
-    colorClicks: colorClickRef.current,
-    textClicks: textClickRef.current,
-    changeColor,
-    changeText
-  }), [state.color, state.text, changeColor, changeText]);
+    colorClicks,
+    textClicks,
+    incrementColorClicks,
+    incrementTextClicks
+  }), [colorClicks, textClicks, incrementColorClicks, incrementTextClicks]);
+
 
   return (
     <ColorTextContext.Provider value={contextValue}>
       {children}
     </ColorTextContext.Provider>
   );
-}
+};

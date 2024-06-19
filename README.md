@@ -38,12 +38,12 @@ To start the project, follow these steps:
 
 3. Install the dependencies:
     ```sh
-    yarn install
+    npm install
     ```
 
 4. Start the development server:
     ```sh
-    yarn start
+    npm run start
     ```
 
 ## Hooks
@@ -119,7 +119,7 @@ const MyContext = createContext(defaultValue);
 Redux is a state management library for JavaScript applications. It stores the application state in a global object and allows state updates via dispatching actions. Key concepts include Store, Action, and Reducer.
 
 ```sh
-yarn add redux react-redux @reduxjs/toolkit
+npm install redux react-redux @reduxjs/toolkit
 ```
 
 
